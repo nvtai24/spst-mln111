@@ -58,13 +58,16 @@
   font-weight: 300;
 }
 
+
 .characters-grid {
   display: grid;
-  grid-template-columns: repeat(6, 1fr); /* Force 6 columns */
-  gap: 1rem; /* Reduce gap */
-  perspective: 1000px;
-  overflow-x: auto; /* Safety scroll for small screens */
-  padding-bottom: 1rem;
+  grid-template-columns: repeat(3, 1fr); /* 3 thẻ / hàng */
+  gap: 16px;
+
+  height: 100vh;        /* hoặc chiều cao bạn muốn */
+  overflow-y: auto;     /* cuộn DỌC */
+  overflow-x: hidden;   /* KHÔNG cuộn ngang */
+  padding: 16px;
 }
 
 .character-card {
@@ -107,7 +110,7 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   color: var(--primary-red);
-  font-weight: 800;
+  font-weight: 600;
   margin-bottom: 0.8rem;
 }
 

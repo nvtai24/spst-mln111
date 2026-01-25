@@ -13,7 +13,7 @@ function ChoiceCard({ choice, onClick, statConfig }) {
             key={key} 
             className={`effect-tag ${value > 0 ? "effect-pos" : "effect-neg"}`}
           >
-            {statConfig[key].icon} {value > 0 ? "+" : ""}{value}
+            {statConfig[key].icon} {/*{value > 0 ? "+" : ""}{value}*/}
           </span>
         ))}
       </div>

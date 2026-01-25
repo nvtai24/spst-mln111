@@ -34,7 +34,7 @@ export const characters = [
   {
     id: "intellectual",
     name: "Lê Văn Minh",
-    role: "Trí thức tiến보",
+    role: "Trí thức tiến bộ",
     icon: "👨‍🎓",
     description:
       "Giáo viên 28 tuổi, đã đọc nhiều sách Mác-Lênin. Muốn thay đổi xã hội nhưng còn do dự giữa lý tưởng và thực tế.",
