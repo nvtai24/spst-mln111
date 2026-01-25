@@ -1,0 +1,133 @@
+@keyframes feedbackSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8) translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes feedbackPulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.decision-feedback {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  animation: feedbackSlideIn 0.5s ease-out;
+}
+
+.feedback-content {
+  background: linear-gradient(
+    145deg,
+    rgba(255, 215, 0, 0.95) 0%,
+    rgba(255, 165, 0, 0.95) 100%
+  );
+  padding: 2.5rem;
+  border-radius: 24px;
+  text-align: center;
+  box-shadow:
+    0 20px 60px rgba(255, 215, 0, 0.6),
+    0 0 100px rgba(255, 215, 0, 0.4),
+    inset 0 0 30px rgba(255, 255, 255, 0.3);
+  border: 3px solid rgba(255, 255, 255, 0.5);
+  min-width: 400px;
+  animation: feedbackPulse 1s ease-in-out infinite;
+}
+
+.feedback-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  animation: feedbackPulse 0.8s ease-in-out infinite;
+}
+
+.feedback-content h3 {
+  margin: 0 0 1rem 0;
+  color: #1a1a2e;
+  font-size: 1.5rem;
+  font-weight: 800;
+  text-shadow: 0 2px 4px rgba(255, 255, 255, 0.5);
+}
+
+.humorous-message {
+  margin: 0 0 1.5rem 0;
+  color: #1a1a2e;
+  font-size: 1.1rem;
+  font-weight: 600;
+  font-style: italic;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+  padding: 0.8rem;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  border: 2px dashed rgba(26, 26, 46, 0.3);
+}
+
+.effects-display {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.effect-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.2);
+  font-weight: 700;
+}
+
+.effect-item.positive {
+  border: 2px solid rgba(74, 222, 128, 0.8);
+  color: #1a1a2e;
+}
+
+.effect-item.negative {
+  border: 2px solid rgba(239, 68, 68, 0.8);
+  color: #1a1a2e;
+}
+
+.effect-icon {
+  font-size: 1.5rem;
+}
+
+.effect-label {
+  flex: 1;
+  font-size: 0.9rem;
+}
+
+.effect-value {
+  font-size: 1.3rem;
+  font-weight: 900;
+}
+
+.effect-item.positive .effect-value {
+  color: #15803d;
+}
+
+.effect-item.negative .effect-value {
+  color: #991b1b;
+}
+
+@media (max-width: 768px) {
+  .feedback-content {
+    min-width: 300px;
+    padding: 2rem;
+  }
+
+  .effects-display {
+    grid-template-columns: 1fr;
+  }
+}
