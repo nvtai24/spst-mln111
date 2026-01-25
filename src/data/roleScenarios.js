@@ -37,6 +37,16 @@ export const roleScenarios = {
           },
           tags: ["moderate"],
         },
+        {
+          text: "Báo tin cho giám đốc để lấy tiền thưởng",
+          effects: {
+            classConsciousness: -30,
+            solidarity: -40,
+            economicStatus: +20,
+            familyWelfare: +10,
+          },
+          tags: ["passive"],
+        },
       ],
     },
     {
@@ -75,6 +85,16 @@ export const roleScenarios = {
             familyWelfare: +5,
           },
           tags: ["moderate"],
+        },
+        {
+          text: "Đi học nhưng ngủ gật vì quá mệt",
+          effects: {
+            classConsciousness: +5,
+            solidarity: 0,
+            economicStatus: 0,
+            familyWelfare: -5,
+          },
+          tags: ["passive"],
         },
       ],
     },
@@ -115,6 +135,16 @@ export const roleScenarios = {
           },
           tags: ["moderate"],
         },
+        {
+          text: "Nhận làm tổ trưởng và xử lý nghiêm khắc anh em để lấy lòng sếp",
+          effects: {
+            classConsciousness: -35,
+            solidarity: -40,
+            economicStatus: +35,
+            familyWelfare: +25,
+          },
+          tags: ["passive"],
+        },
       ],
     },
     {
@@ -153,6 +183,16 @@ export const roleScenarios = {
             familyWelfare: 0,
           },
           tags: ["moderate"],
+        },
+        {
+          text: "Chỉ giúp đỡ bằng lời động viên, không góp tiền",
+          effects: {
+            classConsciousness: -5,
+            solidarity: +5,
+            economicStatus: 0,
+            familyWelfare: 0,
+          },
+          tags: ["passive"],
         },
       ],
     },
@@ -193,6 +233,16 @@ export const roleScenarios = {
           },
           tags: ["moderate"],
         },
+        {
+          text: "Vứt tờ rơi đi và nói dối là đã phát",
+          effects: {
+            classConsciousness: -25,
+            solidarity: -15,
+            economicStatus: 0,
+            familyWelfare: 0,
+          },
+          tags: ["passive"],
+        },
       ],
     },
     {
@@ -231,6 +281,16 @@ export const roleScenarios = {
             familyWelfare: +15,
           },
           tags: ["revolutionary"],
+        },
+        {
+          text: "Vay tiền đồng nghiệp để ăn phở",
+          effects: {
+            classConsciousness: -10,
+            solidarity: -5,
+            economicStatus: -20,
+            familyWelfare: +5,
+          },
+          tags: ["passive"],
         },
       ],
     },
@@ -271,6 +331,16 @@ export const roleScenarios = {
           },
           tags: ["moderate"],
         },
+        {
+          text: "Đe dọa anh ta để anh ta sợ mà dừng lại",
+          effects: {
+            classConsciousness: +5,
+            solidarity: -10,
+            economicStatus: 0,
+            familyWelfare: 0,
+          },
+          tags: ["revolutionary"],
+        },
       ],
     },
     {
@@ -307,6 +377,16 @@ export const roleScenarios = {
             solidarity: +10,
             economicStatus: +10,
             familyWelfare: +5,
+          },
+          tags: ["moderate"],
+        },
+        {
+          text: "Cho con học nghề để sớm kiếm tiền",
+          effects: {
+            classConsciousness: 0,
+            solidarity: 0,
+            economicStatus: +15,
+            familyWelfare: +10,
           },
           tags: ["moderate"],
         },
@@ -349,6 +429,16 @@ export const roleScenarios = {
           },
           tags: ["moderate"],
         },
+        {
+          text: "Rủ mọi người cùng chuyển việc để gây áp lực",
+          effects: {
+            classConsciousness: +10,
+            solidarity: +20,
+            economicStatus: +15,
+            familyWelfare: +10,
+          },
+          tags: ["revolutionary"],
+        },
       ],
     },
     {
@@ -387,6 +477,16 @@ export const roleScenarios = {
             familyWelfare: 0,
           },
           tags: ["moderate"],
+        },
+        {
+          text: "Biếu quà riêng cho giám đốc để bỏ qua",
+          effects: {
+            classConsciousness: -30,
+            solidarity: -20,
+            economicStatus: -15,
+            familyWelfare: +5,
+          },
+          tags: ["passive"],
         },
       ],
     },
@@ -430,6 +530,16 @@ export const roleScenarios = {
           },
           tags: ["moderate"],
         },
+        {
+          text: "Giấu bớt lúa đi để trốn thuế",
+          effects: {
+            classConsciousness: -10,
+            solidarity: -20,
+            economicStatus: +15,
+            familyWelfare: +10,
+          },
+          tags: ["passive"],
+        },
       ],
     },
     {
@@ -468,6 +578,16 @@ export const roleScenarios = {
             familyWelfare: +10,
           },
           tags: ["moderate"],
+        },
+        {
+          text: "Tham gia nhưng lén làm việc riêng cho nhà mình",
+          effects: {
+            classConsciousness: -25,
+            solidarity: -30,
+            economicStatus: +20,
+            familyWelfare: +15,
+          },
+          tags: ["passive"],
         },
       ],
     },
@@ -508,6 +628,16 @@ export const roleScenarios = {
           },
           tags: ["moderate"],
         },
+        {
+          text: "Chế giễu những người đi học là rảnh rỗi",
+          effects: {
+            classConsciousness: -30,
+            solidarity: -20,
+            economicStatus: 0,
+            familyWelfare: 0,
+          },
+          tags: ["passive"],
+        },
       ],
     },
     {
@@ -546,6 +676,16 @@ export const roleScenarios = {
             familyWelfare: +15,
           },
           tags: ["moderate"],
+        },
+        {
+          text: "Đút lót cấp trên để được chia ruộng tốt",
+          effects: {
+            classConsciousness: -40,
+            solidarity: -30,
+            economicStatus: +20,
+            familyWelfare: +15,
+          },
+          tags: ["passive"],
         },
       ],
     },
@@ -586,6 +726,16 @@ export const roleScenarios = {
           },
           tags: ["moderate"],
         },
+        {
+          text: "Giấu lúa đi để chờ giá cao bán ra ngoài",
+          effects: {
+            classConsciousness: -35,
+            solidarity: -40,
+            economicStatus: +35,
+            familyWelfare: +30,
+          },
+          tags: ["passive"],
+        },
       ],
     },
     {
@@ -624,6 +774,16 @@ export const roleScenarios = {
             familyWelfare: +5,
           },
           tags: ["moderate"],
+        },
+        {
+          text: "Bán trâu lấy tiền tiêu, nghỉ làm ruộng một vụ",
+          effects: {
+            classConsciousness: -10,
+            solidarity: 0,
+            economicStatus: -30,
+            familyWelfare: -10,
+          },
+          tags: ["passive"],
         },
       ],
     },
@@ -664,6 +824,16 @@ export const roleScenarios = {
           },
           tags: ["moderate"],
         },
+        {
+          text: "Ép con lấy chồng giàu bằng mọi giá vì sính lễ",
+          effects: {
+            classConsciousness: -40,
+            solidarity: -30,
+            economicStatus: +40,
+            familyWelfare: +10,
+          },
+          tags: ["passive"],
+        },
       ],
     },
     {
@@ -702,6 +872,16 @@ export const roleScenarios = {
             familyWelfare: +5,
           },
           tags: ["moderate"],
+        },
+        {
+          text: "Van xin địa chủ giảm lãi dẫu phải làm nô lệ",
+          effects: {
+            classConsciousness: -40,
+            solidarity: -10,
+            economicStatus: -30,
+            familyWelfare: -20,
+          },
+          tags: ["passive"],
         },
       ],
     },
@@ -742,6 +922,16 @@ export const roleScenarios = {
           },
           tags: ["moderate"],
         },
+        {
+          text: "Trộn cát vào lúa để gian lận lại thương lái",
+          effects: {
+            classConsciousness: -10,
+            solidarity: -20,
+            economicStatus: +10,
+            familyWelfare: +5,
+          },
+          tags: ["passive"],
+        },
       ],
     },
     {
@@ -780,6 +970,16 @@ export const roleScenarios = {
             familyWelfare: +15,
           },
           tags: ["moderate"],
+        },
+        {
+          text: "Chờ xem hàng xóm làm thế nào rồi tính",
+          effects: {
+            classConsciousness: -5,
+            solidarity: 0,
+            economicStatus: 0,
+            familyWelfare: 0,
+          },
+          tags: ["passive"],
         },
       ],
     },
@@ -823,6 +1023,16 @@ export const roleScenarios = {
           },
           tags: ["moderate"],
         },
+        {
+          text: "Xin hoãn tuyên truyền với lý do sức khỏe",
+          effects: {
+            classConsciousness: -20,
+            solidarity: -20,
+            economicStatus: 0,
+            familyWelfare: +10,
+          },
+          tags: ["passive"],
+        },
       ],
     },
     {
@@ -861,6 +1071,16 @@ export const roleScenarios = {
             familyWelfare: 0,
           },
           tags: ["revolutionary"],
+        },
+        {
+          text: "Dịch sách nhưng cắt xén nội dung cho phù hợp thị hiếu",
+          effects: {
+            classConsciousness: -25,
+            solidarity: -15,
+            economicStatus: +20,
+            familyWelfare: +15,
+          },
+          tags: ["passive"],
         },
       ],
     },
@@ -901,6 +1121,16 @@ export const roleScenarios = {
           },
           tags: ["moderate"],
         },
+        {
+          text: "Viết bài nặc danh để phê phán",
+          effects: {
+            classConsciousness: -10,
+            solidarity: -5,
+            economicStatus: -5,
+            familyWelfare: +5,
+          },
+          tags: ["passive"],
+        },
       ],
     },
     {
@@ -939,6 +1169,16 @@ export const roleScenarios = {
             familyWelfare: +10,
           },
           tags: ["moderate"],
+        },
+        {
+          text: "Về quê một thời gian ngắn rồi tìm cớ quay lại phố",
+          effects: {
+            classConsciousness: -10,
+            solidarity: -15,
+            economicStatus: +10,
+            familyWelfare: +15,
+          },
+          tags: ["passive"],
         },
       ],
     },
@@ -979,6 +1219,16 @@ export const roleScenarios = {
           },
           tags: ["moderate"],
         },
+        {
+          text: "Nói đùa để giảm bớt sự căng thẳng",
+          effects: {
+            classConsciousness: -5,
+            solidarity: +5,
+            economicStatus: +5,
+            familyWelfare: +5,
+          },
+          tags: ["passive"],
+        },
       ],
     },
     {
@@ -1017,6 +1267,16 @@ export const roleScenarios = {
             familyWelfare: 0,
           },
           tags: ["moderate"],
+        },
+        {
+          text: "Lảng tránh sang chủ đề khác cho an toàn",
+          effects: {
+            classConsciousness: -15,
+            solidarity: -10,
+            economicStatus: +5,
+            familyWelfare: +5,
+          },
+          tags: ["passive"],
         },
       ],
     },
@@ -1057,6 +1317,16 @@ export const roleScenarios = {
           },
           tags: ["moderate"],
         },
+        {
+          text: "Thuê người khác viết sách 'hot' dưới tên mình",
+          effects: {
+            classConsciousness: -40,
+            solidarity: -30,
+            economicStatus: +35,
+            familyWelfare: +30,
+          },
+          tags: ["passive"],
+        },
       ],
     },
     {
@@ -1095,6 +1365,16 @@ export const roleScenarios = {
             familyWelfare: 0,
           },
           tags: ["moderate"],
+        },
+        {
+          text: "Tranh cãi gay gắt lại với những người ném đá",
+          effects: {
+            classConsciousness: +10,
+            solidarity: -20,
+            economicStatus: -5,
+            familyWelfare: -5,
+          },
+          tags: ["revolutionary"],
         },
       ],
     },
@@ -1135,6 +1415,16 @@ export const roleScenarios = {
           },
           tags: ["moderate"],
         },
+        {
+          text: "Nhận việc để bí mật thu thập thông tin bóc lột",
+          effects: {
+            classConsciousness: +30,
+            solidarity: +5,
+            economicStatus: +10,
+            familyWelfare: 0,
+          },
+          tags: ["revolutionary"],
+        },
       ],
     },
     {
@@ -1173,6 +1463,16 @@ export const roleScenarios = {
             familyWelfare: +10,
           },
           tags: ["moderate"],
+        },
+        {
+          text: "Dọa sẽ cho điểm thấp nếu không học nghiêm túc",
+          effects: {
+            classConsciousness: -10,
+            solidarity: -20,
+            economicStatus: 0,
+            familyWelfare: 0,
+          },
+          tags: ["passive"],
         },
       ],
     },
@@ -1216,6 +1516,16 @@ export const roleScenarios = {
           },
           tags: ["moderate"],
         },
+        {
+          text: "Làm báo cáo khống để đạt chỉ tiêu trên giấy",
+          effects: {
+            classConsciousness: -40,
+            solidarity: -30,
+            economicStatus: +20,
+            familyWelfare: +10,
+          },
+          tags: ["passive"],
+        },
       ],
     },
     {
@@ -1254,6 +1564,16 @@ export const roleScenarios = {
             familyWelfare: 0,
           },
           tags: ["moderate"],
+        },
+        {
+          text: "Yêu cầu chia một phần tiền tham ô để bỏ qua",
+          effects: {
+            classConsciousness: -50,
+            solidarity: -50,
+            economicStatus: +30,
+            familyWelfare: +25,
+          },
+          tags: ["passive"],
         },
       ],
     },
@@ -1294,6 +1614,16 @@ export const roleScenarios = {
           },
           tags: ["moderate"],
         },
+        {
+          text: "Tung tin đồn thất thiệt để hạ bệ đối thủ",
+          effects: {
+            classConsciousness: -40,
+            solidarity: -40,
+            economicStatus: +30,
+            familyWelfare: +20,
+          },
+          tags: ["passive"],
+        },
       ],
     },
     {
@@ -1332,6 +1662,16 @@ export const roleScenarios = {
             familyWelfare: +5,
           },
           tags: ["moderate"],
+        },
+        {
+          text: "Đổ lỗi cho hoàn cảnh hoặc người khác",
+          effects: {
+            classConsciousness: -30,
+            solidarity: -30,
+            economicStatus: +10,
+            familyWelfare: +10,
+          },
+          tags: ["passive"],
         },
       ],
     },
@@ -1372,6 +1712,16 @@ export const roleScenarios = {
           },
           tags: ["moderate"],
         },
+        {
+          text: "Giao việc cho cấp dưới, về nhà chăm con ngay",
+          effects: {
+            classConsciousness: -25,
+            solidarity: -15,
+            economicStatus: -5,
+            familyWelfare: +35,
+          },
+          tags: ["passive"],
+        },
       ],
     },
     {
@@ -1410,6 +1760,16 @@ export const roleScenarios = {
             familyWelfare: +5,
           },
           tags: ["moderate"],
+        },
+        {
+          text: "Thổi phồng thành tích để được khen thưởng",
+          effects: {
+            classConsciousness: -35,
+            solidarity: -25,
+            economicStatus: +25,
+            familyWelfare: +20,
+          },
+          tags: ["passive"],
         },
       ],
     },
@@ -1450,6 +1810,16 @@ export const roleScenarios = {
           },
           tags: ["moderate"],
         },
+        {
+          text: "Ưu tiên ngầm, làm hồ sơ giả cho hợp lệ",
+          effects: {
+            classConsciousness: -40,
+            solidarity: -35,
+            economicStatus: +20,
+            familyWelfare: +20,
+          },
+          tags: ["passive"],
+        },
       ],
     },
     {
@@ -1488,6 +1858,16 @@ export const roleScenarios = {
             familyWelfare: 0,
           },
           tags: ["moderate"],
+        },
+        {
+          text: "Dùng biện pháp mạnh để giải tán đám đông",
+          effects: {
+            classConsciousness: -45,
+            solidarity: -50,
+            economicStatus: -10,
+            familyWelfare: -10,
+          },
+          tags: ["passive"],
         },
       ],
     },
@@ -1528,6 +1908,16 @@ export const roleScenarios = {
           },
           tags: ["moderate"],
         },
+        {
+          text: "Gợi ý tăng thêm tiền thì mới nhận lời giúp",
+          effects: {
+            classConsciousness: -50,
+            solidarity: -40,
+            economicStatus: +50,
+            familyWelfare: +40,
+          },
+          tags: ["passive"],
+        },
       ],
     },
     {
@@ -1566,6 +1956,16 @@ export const roleScenarios = {
             familyWelfare: +5,
           },
           tags: ["moderate"],
+        },
+        {
+          text: "Dọa xin ra khỏi Đảng nếu bị bắt ép đi",
+          effects: {
+            classConsciousness: -40,
+            solidarity: -30,
+            economicStatus: 0,
+            familyWelfare: +20,
+          },
+          tags: ["passive"],
         },
       ],
     },
@@ -1609,6 +2009,16 @@ export const roleScenarios = {
           },
           tags: ["moderate"],
         },
+        {
+          text: "Báo tin cho nhà trường về người tổ chức để lập công",
+          effects: {
+            classConsciousness: -35,
+            solidarity: -40,
+            economicStatus: +15,
+            familyWelfare: +10,
+          },
+          tags: ["passive"],
+        },
       ],
     },
     {
@@ -1647,6 +2057,16 @@ export const roleScenarios = {
             familyWelfare: +10,
           },
           tags: ["moderate"],
+        },
+        {
+          text: "Sao chép luận văn cũ trên mạng nộp cho xong",
+          effects: {
+            classConsciousness: -30,
+            solidarity: -10,
+            economicStatus: +5,
+            familyWelfare: +10,
+          },
+          tags: ["passive"],
         },
       ],
     },
@@ -1687,6 +2107,16 @@ export const roleScenarios = {
           },
           tags: ["moderate"],
         },
+        {
+          text: "Nhờ quan hệ của bố mẹ để vào chỗ nhàn hạ lương cao",
+          effects: {
+            classConsciousness: -30,
+            solidarity: -20,
+            economicStatus: +20,
+            familyWelfare: +25,
+          },
+          tags: ["passive"],
+        },
       ],
     },
     {
@@ -1725,6 +2155,16 @@ export const roleScenarios = {
             familyWelfare: +15,
           },
           tags: ["moderate"],
+        },
+        {
+          text: "Dạy qua loa lấy tiền, không quan tâm chất lượng",
+          effects: {
+            classConsciousness: -25,
+            solidarity: -20,
+            economicStatus: +35,
+            familyWelfare: +30,
+          },
+          tags: ["passive"],
         },
       ],
     },
@@ -1765,6 +2205,16 @@ export const roleScenarios = {
           },
           tags: ["moderate"],
         },
+        {
+          text: "Vào Đảng chỉ để làm đẹp hồ sơ xin việc",
+          effects: {
+            classConsciousness: -30,
+            solidarity: -15,
+            economicStatus: +25,
+            familyWelfare: +20,
+          },
+          tags: ["passive"],
+        },
       ],
     },
     {
@@ -1803,6 +2253,16 @@ export const roleScenarios = {
             familyWelfare: +10,
           },
           tags: ["moderate"],
+        },
+        {
+          text: "Nói dối bố mẹ là đi học nhóm để đi chơi",
+          effects: {
+            classConsciousness: -25,
+            solidarity: -10,
+            economicStatus: 0,
+            familyWelfare: 0,
+          },
+          tags: ["passive"],
         },
       ],
     },
@@ -1843,6 +2303,16 @@ export const roleScenarios = {
           },
           tags: ["revolutionary"],
         },
+        {
+          text: "Xin chép bài cùng để điểm cao",
+          effects: {
+            classConsciousness: -30,
+            solidarity: -15,
+            economicStatus: +10,
+            familyWelfare: +10,
+          },
+          tags: ["passive"],
+        },
       ],
     },
     {
@@ -1881,6 +2351,16 @@ export const roleScenarios = {
             familyWelfare: 0,
           },
           tags: ["moderate"],
+        },
+        {
+          text: "Xin làm cộng tác viên online để không lộ diện",
+          effects: {
+            classConsciousness: -25,
+            solidarity: -20,
+            economicStatus: +15,
+            familyWelfare: +10,
+          },
+          tags: ["passive"],
         },
       ],
     },
@@ -1921,6 +2401,16 @@ export const roleScenarios = {
           },
           tags: ["moderate"],
         },
+        {
+          text: "Tham gia chỉ để chụp ảnh đăng Facebook sống ảo",
+          effects: {
+            classConsciousness: -20,
+            solidarity: -10,
+            economicStatus: 0,
+            familyWelfare: +5,
+          },
+          tags: ["passive"],
+        },
       ],
     },
     {
@@ -1959,6 +2449,16 @@ export const roleScenarios = {
             familyWelfare: -5,
           },
           tags: ["moderate"],
+        },
+        {
+          text: "Giả vờ giàu có để được gia nhập hội",
+          effects: {
+            classConsciousness: -35,
+            solidarity: -20,
+            economicStatus: -30,
+            familyWelfare: -20,
+          },
+          tags: ["passive"],
         },
       ],
     },
@@ -2002,6 +2502,16 @@ export const roleScenarios = {
           },
           tags: ["moderate"],
         },
+        {
+          text: "Sa thải những người cầm đầu đình công",
+          effects: {
+            classConsciousness: -50,
+            solidarity: -50,
+            economicStatus: +30,
+            familyWelfare: +20,
+          },
+          tags: ["passive"],
+        },
       ],
     },
     {
@@ -2040,6 +2550,16 @@ export const roleScenarios = {
             familyWelfare: +15,
           },
           tags: ["moderate"],
+        },
+        {
+          text: "Tìm cách tẩu tán tài sản trước khi hợp tác",
+          effects: {
+            classConsciousness: -40,
+            solidarity: -30,
+            economicStatus: +25,
+            familyWelfare: +30,
+          },
+          tags: ["passive"],
         },
       ],
     },
@@ -2080,6 +2600,16 @@ export const roleScenarios = {
           },
           tags: ["moderate"],
         },
+        {
+          text: "Lập công ty ma để trốn thuế hoàn toàn",
+          effects: {
+            classConsciousness: -50,
+            solidarity: -40,
+            economicStatus: +40,
+            familyWelfare: +35,
+          },
+          tags: ["passive"],
+        },
       ],
     },
     {
@@ -2118,6 +2648,16 @@ export const roleScenarios = {
             familyWelfare: +20,
           },
           tags: ["moderate"],
+        },
+        {
+          text: "Đầu cơ bất động sản, không sản xuất gì cả",
+          effects: {
+            classConsciousness: -30,
+            solidarity: -20,
+            economicStatus: +50,
+            familyWelfare: +40,
+          },
+          tags: ["passive"],
         },
       ],
     },
@@ -2158,6 +2698,16 @@ export const roleScenarios = {
           },
           tags: ["moderate"],
         },
+        {
+          text: "Đầu cơ tích trữ hàng hóa chờ giá lên",
+          effects: {
+            classConsciousness: -45,
+            solidarity: -50,
+            economicStatus: +45,
+            familyWelfare: +30,
+          },
+          tags: ["passive"],
+        },
       ],
     },
     {
@@ -2196,6 +2746,16 @@ export const roleScenarios = {
             familyWelfare: +5,
           },
           tags: ["moderate"],
+        },
+        {
+          text: "Đóng cửa nhà máy để gây sức ép",
+          effects: {
+            classConsciousness: -40,
+            solidarity: -45,
+            economicStatus: -20,
+            familyWelfare: -10,
+          },
+          tags: ["passive"],
         },
       ],
     },
@@ -2236,6 +2796,16 @@ export const roleScenarios = {
           },
           tags: ["moderate"],
         },
+        {
+          text: "Bán lại toàn bộ công ty và ra nước ngoài sống",
+          effects: {
+            classConsciousness: -60,
+            solidarity: -50,
+            economicStatus: +60,
+            familyWelfare: +50,
+          },
+          tags: ["passive"],
+        },
       ],
     },
     {
@@ -2274,6 +2844,16 @@ export const roleScenarios = {
             familyWelfare: +10,
           },
           tags: ["moderate"],
+        },
+        {
+          text: "Lập quỹ tín thác để con hưởng thụ mà không phải làm",
+          effects: {
+            classConsciousness: -30,
+            solidarity: -20,
+            economicStatus: +20,
+            familyWelfare: +40,
+          },
+          tags: ["passive"],
         },
       ],
     },
@@ -2314,6 +2894,16 @@ export const roleScenarios = {
           },
           tags: ["moderate"],
         },
+        {
+          text: "Gia nhập để làm 'tay trong' kiếm lợi ích kinh tế",
+          effects: {
+            classConsciousness: -35,
+            solidarity: -30,
+            economicStatus: +35,
+            familyWelfare: +30,
+          },
+          tags: ["passive"],
+        },
       ],
     },
     {
@@ -2352,6 +2942,16 @@ export const roleScenarios = {
             familyWelfare: -5,
           },
           tags: ["moderate"],
+        },
+        {
+          text: "Thành lập công đoàn 'vàng' do người nhà mình lãnh đạo",
+          effects: {
+            classConsciousness: -45,
+            solidarity: -50,
+            economicStatus: +25,
+            familyWelfare: +20,
+          },
+          tags: ["passive"],
         },
       ],
     },

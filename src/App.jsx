@@ -13,16 +13,21 @@ function App() {
     stats: null,
     choices: [],
     gameOver: false,
+    activeScenarios: [],
   });
 
   const selectCharacter = (character) => {
+    // Select all scenarios for the character
+    const selectedScenarios = [...roleScenarios[character.id]];
+
     setSelectedCharacter(character);
     setGameState({
       turn: 1,
       scenarioIndex: 0,
-       stats: { ...character.stats },
+      stats: { ...character.stats },
       choices: [],
       gameOver: false,
+      activeScenarios: selectedScenarios,
     });
     setGamePhase("playing");
   };
@@ -38,10 +43,9 @@ function App() {
       );
     });
 
-    const scenarios = roleScenarios[selectedCharacter.id];
     // Check if there are more scenarios
     const nextTurn = gameState.turn + 1;
-    const isGameOver = nextTurn > scenarios.length;
+    const isGameOver = nextTurn > gameState.activeScenarios.length;
 
     if (isGameOver) {
       setGamePhase("ending");
@@ -55,7 +59,7 @@ function App() {
       choices: [
         ...gameState.choices,
         {
-          scenario: scenarios[gameState.scenarioIndex].title,
+          scenario: gameState.activeScenarios[gameState.scenarioIndex].title,
           choice: choice.text,
           tags: choice.tags,
         },
@@ -73,6 +77,7 @@ function App() {
       stats: null,
       choices: [],
       gameOver: false,
+      activeScenarios: [],
     });
   };
 
@@ -83,10 +88,7 @@ function App() {
   };
 
   // Playing Phase Data
-  const scenarios = selectedCharacter
-    ? roleScenarios[selectedCharacter.id]
-    : [];
-  const currentScenario = scenarios[gameState.scenarioIndex];
+  const currentScenario = gameState.activeScenarios[gameState.scenarioIndex];
 
   // Logic for Evaluation
   const getEvaluation = () => {
@@ -96,9 +98,6 @@ function App() {
     const passiveCount = gameState.choices.filter((c) =>
       c.tags.includes("passive"),
     ).length;
-    const moderateCount = gameState.choices.filter((c) =>
-      c.tags.includes("moderate"),
-    ).length;
 
     let evaluation = {
       title: "",
@@ -107,22 +106,17 @@ function App() {
       analysis: "",
     };
 
-    if (revolutionaryCount >= 6) {
+    if (revolutionaryCount >= 3) {
       evaluation.title = "Chiến sĩ Cách mạng Kiên định";
       evaluation.rank = "S+";
       evaluation.message = "Tuyệt vời! Bạn là niềm tự hào của giai cấp vô sản!";
       evaluation.analysis = `Với ${revolutionaryCount}/${gameState.choices.length} quyết định mang tính cách mạng, bạn đã thể hiện lập trường tư tưởng vững vàng.`;
-    } else if (revolutionaryCount >= 4) {
+    } else if (revolutionaryCount >= 2) {
       evaluation.title = "Người Đồng chí Tích cực";
-      evaluation.rank = "S";
+      evaluation.rank = "A";
       evaluation.message = "Rất tốt! Bạn luôn đặt lợi ích tập thể lên trên.";
       evaluation.analysis = `Bạn đã có ${revolutionaryCount} quyết định đúng đắn, góp phần vào thắng lợi chung.`;
-    } else if (revolutionaryCount >= 2 && passiveCount <= 2) {
-      evaluation.title = "Quần chúng Cảm tình";
-      evaluation.rank = "A";
-      evaluation.message = "Khá tốt, nhưng cần quyết đoán hơn nữa.";
-      evaluation.analysis = `Sự cân bằng là tốt, nhưng cách mạng cần những ngọn lửa bùng cháy hơn.`;
-    } else if (passiveCount >= 5) {
+    } else if (passiveCount >= 3) {
       evaluation.title = "Người Bàng quan";
       evaluation.rank = "C";
       evaluation.message = "Bạn cần nâng cao nhận thức giai cấp ngay lập tức.";
@@ -220,11 +214,11 @@ function App() {
   // --------------------------------------------------------------------------
   // RENDER: PLAYING
   // --------------------------------------------------------------------------
-  const statLabels = {
-    classConsciousness: "Ý thức giai cấp",
-    solidarity: "Đoàn kết",
-    economicStatus: "Kinh tế",
-    familyWelfare: "Gia đình",
+  const statConfig = {
+    classConsciousness: { label: "Ý thức", icon: "🧠" },
+    solidarity: { label: "Đoàn kết", icon: "🤝" },
+    economicStatus: { label: "Kinh tế", icon: "💰" },
+    familyWelfare: { label: "Gia đình", icon: "👨‍👩‍👧‍👦" },
   };
 
   return (
@@ -237,7 +231,7 @@ function App() {
             <span className="mini-char-icon">{selectedCharacter.icon}</span>
             <div className="mini-char-name">{selectedCharacter.name}</div>
             <div className="turn-display">
-              Tình huống: {gameState.turn} / {scenarios.length}
+              Tình huống: {gameState.turn} / {gameState.activeScenarios.length}
             </div>
           </div>
 
@@ -246,8 +240,10 @@ function App() {
               {Object.entries(gameState.stats).map(([key, value]) => (
                 <div key={key} className="stat-item">
                   <div className="stat-header">
-                    <span>{statLabels[key]}</span>
-                    <span>{value}%</span>
+                    <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                      {statConfig[key].icon} {statConfig[key].label}
+                    </span>
+                    <span style={{ fontWeight: 800, color: 'var(--accent-gold)' }}>{value}</span>
                   </div>
                   <div className="stat-bar-bg">
                     <div 
@@ -262,11 +258,6 @@ function App() {
               ))}
             </div>
           </div>
-          
-           {/* Reuse ProgressTracker if needed, or remove if styling is redundant. 
-               Let's keep it simple for now and rely on our new UI. 
-               If ProgressTracker is vital, we can add it back. 
-               For now, the sticky HUD is cleaner. */}
         </div>
 
         {/* MAIN: SCENARIO & CHOICES */}
@@ -293,7 +284,7 @@ function App() {
                   <div className="choice-effects">
                     {Object.entries(choice.effects).map(([key, value]) => (
                       <span key={key} className={`effect-tag ${value > 0 ? "effect-pos" : "effect-neg"}`}>
-                        {value > 0 ? "+" : ""}{value} {statLabels[key] || key}
+                        {statConfig[key].icon} {value > 0 ? "+" : ""}{value}
                       </span>
                     ))}
                   </div>
