@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import './EndingScreen.css';
 import HistoryList from './HistoryList';
 
 function EndingScreen({ character, evaluation, choices, onRestart }) {
@@ -16,6 +17,12 @@ function EndingScreen({ character, evaluation, choices, onRestart }) {
         <div className="rank-display">
           <div className="rank-badge">{evaluation.rank}</div>
           <div className="rank-title">{evaluation.title}</div>
+          {evaluation.score !== undefined && (
+            <div className="rank-score">Điểm: {evaluation.score}/100</div>
+          )}
+          {evaluation.tier && (
+            <div className="rank-tier">{evaluation.tier}</div>
+          )}
         </div>
 
         <div className="final-analysis">
@@ -23,7 +30,46 @@ function EndingScreen({ character, evaluation, choices, onRestart }) {
             {evaluation.message}
           </p>
           <p>{evaluation.analysis}</p>
+          
+          {evaluation.characterAnalysis && (
+            <p style={{ marginTop: "1rem", fontStyle: "italic", color: "var(--accent-gold)" }}>
+              {evaluation.characterAnalysis}
+            </p>
+          )}
         </div>
+
+        {evaluation.strengths && evaluation.strengths.length > 0 && (
+          <div className="evaluation-section strengths">
+            <h4>✨ Điểm mạnh</h4>
+            <ul>
+              {evaluation.strengths.map((strength, index) => (
+                <li key={index}>{strength}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {evaluation.weaknesses && evaluation.weaknesses.length > 0 && (
+          <div className="evaluation-section weaknesses">
+            <h4>⚠️ Điểm yếu</h4>
+            <ul>
+              {evaluation.weaknesses.map((weakness, index) => (
+                <li key={index}>{weakness}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {evaluation.suggestions && evaluation.suggestions.length > 0 && (
+          <div className="evaluation-section suggestions">
+            <h4>💡 Gợi ý</h4>
+            <ul>
+              {evaluation.suggestions.map((suggestion, index) => (
+                <li key={index}>{suggestion}</li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         <HistoryList choices={choices} />
 
