@@ -2,10 +2,12 @@ import { useState } from "react";
 import "./App.css";
 import { characters } from "./data/characters";
 import { roleScenarios } from "./data/roleScenarios";
-import ProgressTracker from "./components/ProgressTracker";
+import CharacterSelection from "./components/CharacterSelection/CharacterSelection";
+import GameLayout from "./components/GamePlay/GameLayout";
+import EndingScreen from "./components/Ending/EndingScreen";
 
 function App() {
-  const [gamePhase, setGamePhase] = useState("character-selection"); // character-selection, playing, ending
+  const [gamePhase, setGamePhase] = useState("character-selection");
   const [selectedCharacter, setSelectedCharacter] = useState(null);
   const [gameState, setGameState] = useState({
     turn: 1,
@@ -16,8 +18,15 @@ function App() {
     activeScenarios: [],
   });
 
+  // Stat configuration
+  const statConfig = {
+    classConsciousness: { label: "Ý thức", icon: "🧠" },
+    solidarity: { label: "Đoàn kết", icon: "🤝" },
+    economicStatus: { label: "Kinh tế", icon: "💰" },
+    familyWelfare: { label: "Gia đình", icon: "👨‍👩‍👧‍👦" },
+  };
+
   const selectCharacter = (character) => {
-    // Select all scenarios for the character
     const selectedScenarios = [...roleScenarios[character.id]];
 
     setSelectedCharacter(character);
@@ -35,7 +44,6 @@ function App() {
   const makeDecision = (choice) => {
     const newStats = { ...gameState.stats };
 
-    // Apply effects
     Object.keys(choice.effects).forEach((key) => {
       newStats[key] = Math.max(
         0,
@@ -43,7 +51,6 @@ function App() {
       );
     });
 
-    // Check if there are more scenarios
     const nextTurn = gameState.turn + 1;
     const isGameOver = nextTurn > gameState.activeScenarios.length;
 
@@ -81,16 +88,6 @@ function App() {
     });
   };
 
-  const getStatClass = (value) => {
-    if (value >= 70) return "stat-high";
-    if (value >= 40) return "stat-medium";
-    return "stat-low";
-  };
-
-  // Playing Phase Data
-  const currentScenario = gameState.activeScenarios[gameState.scenarioIndex];
-
-  // Logic for Evaluation
   const getEvaluation = () => {
     const revolutionaryCount = gameState.choices.filter((c) =>
       c.tags.includes("revolutionary"),
@@ -131,171 +128,39 @@ function App() {
     return evaluation;
   };
 
-  // --------------------------------------------------------------------------
-  // RENDER: CHARACTER SELECTION
-  // --------------------------------------------------------------------------
+  // Render based on game phase
   if (gamePhase === "character-selection") {
     return (
-      <div className="app">
-        <div className="character-selection">
-          <h1>ĐẤU TRANH GIAI CẤP</h1>
-          <p className="subtitle">Lựa chọn nhân vật để bắt đầu hành trình giác ngộ</p>
-
-          <div className="characters-grid">
-            {characters.map((character) => (
-              <div
-                key={character.id}
-                className="character-card"
-                onClick={() => selectCharacter(character)}
-              >
-                <div className="character-icon">{character.icon}</div>
-                <h3>{character.name}</h3>
-                <div className="character-role">{character.role}</div>
-                <p className="character-description">{character.description}</p>
-                <div className="character-background">
-                  <strong>Bối cảnh:</strong> {character.background}
-                </div>
-                <button className="select-btn">Nhập vai</button>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+      <CharacterSelection
+        characters={characters}
+        onSelectCharacter={selectCharacter}
+      />
     );
   }
 
-  // --------------------------------------------------------------------------
-  // RENDER: ENDING
-  // --------------------------------------------------------------------------
   if (gamePhase === "ending") {
     const evaluation = getEvaluation();
     return (
-      <div className="app">
-        <div className="ending-screen">
-          <div className="character-icon" style={{ fontSize: "5rem" }}>
-            {selectedCharacter.icon}
-          </div>
-          <h1>Tổng kết Hành trình</h1>
-          <h3 style={{ color: "var(--accent-gold)" }}>{selectedCharacter.name} - {selectedCharacter.role}</h3>
-
-          <div className="rank-display">
-            <div className="rank-badge">{evaluation.rank}</div>
-            <div className="rank-title">{evaluation.title}</div>
-          </div>
-
-          <div className="final-analysis">
-            <p className="ending-message" style={{ fontSize: "1.3rem", fontWeight: "bold", marginBottom: "1rem" }}>
-              {evaluation.message}
-            </p>
-            <p>{evaluation.analysis}</p>
-          </div>
-
-          <div className="history-list">
-            <h3>Lịch sử lựa chọn</h3>
-            {gameState.choices.map((choice, index) => (
-              <div key={index} className="history-item">
-                <div className="history-turn">{index + 1}</div>
-                <div className="history-content">
-                  <h4>{choice.scenario}</h4>
-                  <span className="history-choice">{choice.choice}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <button className="restart-btn" onClick={resetGame}>
-            Khởi đầu mới
-          </button>
-        </div>
-      </div>
+      <EndingScreen
+        character={selectedCharacter}
+        evaluation={evaluation}
+        choices={gameState.choices}
+        onRestart={resetGame}
+      />
     );
   }
 
-  // --------------------------------------------------------------------------
-  // RENDER: PLAYING
-  // --------------------------------------------------------------------------
-  const statConfig = {
-    classConsciousness: { label: "Ý thức", icon: "🧠" },
-    solidarity: { label: "Đoàn kết", icon: "🤝" },
-    economicStatus: { label: "Kinh tế", icon: "💰" },
-    familyWelfare: { label: "Gia đình", icon: "👨‍👩‍👧‍👦" },
-  };
+  // Playing phase
+  const currentScenario = gameState.activeScenarios[gameState.scenarioIndex];
 
   return (
-    <div className="app">
-      <div className="game-layout">
-        
-        {/* SIDEBAR: STATS & INFO */}
-        <div className="game-sidebar">
-          <div className="sidebar-card mini-char-profile">
-            <span className="mini-char-icon">{selectedCharacter.icon}</span>
-            <div className="mini-char-name">{selectedCharacter.name}</div>
-            <div className="turn-display">
-              Tình huống: {gameState.turn} / {gameState.activeScenarios.length}
-            </div>
-          </div>
-
-          <div className="sidebar-card">
-            <div className="stats-list">
-              {Object.entries(gameState.stats).map(([key, value]) => (
-                <div key={key} className="stat-item">
-                  <div className="stat-header">
-                    <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                      {statConfig[key].icon} {statConfig[key].label}
-                    </span>
-                    <span style={{ fontWeight: 800, color: 'var(--accent-gold)' }}>{value}</span>
-                  </div>
-                  <div className="stat-bar-bg">
-                    <div 
-                      className="stat-bar-fill"
-                      style={{ 
-                        width: `${value}%`,
-                        backgroundColor: value < 30 ? "var(--danger)" : value > 70 ? "var(--success)" : "var(--accent-gold)" 
-                      }}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* MAIN: SCENARIO & CHOICES */}
-        <div className="game-main">
-          <div className="scenario-container">
-            <div className="scenario-header">
-              <h2 className="scenario-title">{currentScenario.title}</h2>
-              <p className="scenario-desc">{currentScenario.description}</p>
-              {currentScenario.theory && (
-                <div className="theory-pill">
-                  <span>📚</span> {currentScenario.theory}
-                </div>
-              )}
-            </div>
-
-            <div className="choices-grid">
-              {currentScenario.choices.map((choice, index) => (
-                <button
-                  key={index}
-                  className="choice-card"
-                  onClick={() => makeDecision(choice)}
-                >
-                  <div className="choice-text">{choice.text}</div>
-                  <div className="choice-effects">
-                    {Object.entries(choice.effects).map(([key, value]) => (
-                      <span key={key} className={`effect-tag ${value > 0 ? "effect-pos" : "effect-neg"}`}>
-                        {statConfig[key].icon} {value > 0 ? "+" : ""}{value}
-                      </span>
-                    ))}
-                  </div>
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
+    <GameLayout
+      selectedCharacter={selectedCharacter}
+      gameState={gameState}
+      currentScenario={currentScenario}
+      onMakeDecision={makeDecision}
+      statConfig={statConfig}
+    />
   );
 }
 
