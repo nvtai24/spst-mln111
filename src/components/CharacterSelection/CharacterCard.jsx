@@ -6,7 +6,9 @@ function CharacterCard({ character, onClick }) {
       className="character-card"
       onClick={onClick}
     >
-      <div className="character-icon">{character.icon}</div>
+      <div className="character-icon">
+        <img src={character.icon} alt={character.role} />
+      </div>
       <h3>{character.name}</h3>
       <div className="character-role">{character.role}</div>
       <p className="character-description">{character.description}</p>
