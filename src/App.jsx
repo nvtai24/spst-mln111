@@ -7,6 +7,7 @@ import CharacterSelection from "./components/CharacterSelection/CharacterSelecti
 import GameLayout from "./components/GamePlay/GameLayout";
 import EndingScreen from "./components/Ending/EndingScreen";
 import MenuScreen from "./components/Menu/MenuScreen";
+import LoadingScreen from "./components/common/LoadingScreen";
 
 function App() {
   const [gamePhase, setGamePhase] = useState("menu");
@@ -22,7 +23,10 @@ function App() {
   });
 
   const startGame = () => {
-    setGamePhase("character-selection");
+    setGamePhase("loading");
+    setTimeout(() => {
+      setGamePhase("character-selection");
+    }, 1000);
   };
 
 
@@ -103,6 +107,10 @@ function App() {
 
   if (gamePhase === "menu") {
     return <MenuScreen onStart={startGame} />;
+  }
+
+  if (gamePhase === "loading") {
+    return <LoadingScreen />;
   }
 
 

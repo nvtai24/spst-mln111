@@ -148,3 +148,10 @@ button {
   height: 100%;
   object-fit: cover;
 }
+
+#root {
+  min-height: 100vh;
+  background: repeating-radial-gradient(circle,
+      red 0 2px,
+      transparent 2px 20px) !important;
+}
