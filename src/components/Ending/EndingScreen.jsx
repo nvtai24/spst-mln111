@@ -6,11 +6,12 @@ function EndingScreen({ character, evaluation, choices, onRestart }) {
   return (
     <div className="app">
       <div className="ending-screen">
-        <div className="character-icon" style={{ fontSize: "5rem" }}>
-          {character.icon}
+        <div className="character-icon ending-icon">
+          <img src={character.icon} alt={character.name} />
         </div>
+
         <h1>Tổng kết Hành trình</h1>
-        <h3 style={{ color: "var(--accent-gold)" }}>
+        <h3 style={{ color: "var(--text-primary)" }}>
           {character.name} - {character.role}
         </h3>
 
@@ -30,9 +31,9 @@ function EndingScreen({ character, evaluation, choices, onRestart }) {
             {evaluation.message}
           </p>
           <p>{evaluation.analysis}</p>
-          
+
           {evaluation.characterAnalysis && (
-            <p style={{ marginTop: "1rem", fontStyle: "italic", color: "var(--accent-gold)" }}>
+            <p style={{ marginTop: "1rem", fontStyle: "italic", color: "var(--text-secondary)" }}>
               {evaluation.characterAnalysis}
             </p>
           )}

@@ -6,10 +6,12 @@ import { evaluateGame } from "./utils/evaluationEngine";
 import CharacterSelection from "./components/CharacterSelection/CharacterSelection";
 import GameLayout from "./components/GamePlay/GameLayout";
 import EndingScreen from "./components/Ending/EndingScreen";
+import MenuScreen from "./components/Menu/MenuScreen";
 
 function App() {
-  const [gamePhase, setGamePhase] = useState("character-selection");
+  const [gamePhase, setGamePhase] = useState("menu");
   const [selectedCharacter, setSelectedCharacter] = useState(null);
+
   const [gameState, setGameState] = useState({
     turn: 1,
     scenarioIndex: 0,
@@ -18,6 +20,12 @@ function App() {
     gameOver: false,
     activeScenarios: [],
   });
+
+  const startGame = () => {
+    setGamePhase("character-selection");
+  };
+
+
 
   // Stat configuration
   const statConfig = {
@@ -77,7 +85,7 @@ function App() {
   };
 
   const resetGame = () => {
-    setGamePhase("character-selection");
+    setGamePhase("menu");
     setSelectedCharacter(null);
     setGameState({
       turn: 1,
@@ -92,6 +100,11 @@ function App() {
   const getEvaluation = () => {
     return evaluateGame(selectedCharacter.id, gameState.choices, gameState.stats);
   };
+
+  if (gamePhase === "menu") {
+    return <MenuScreen onStart={startGame} />;
+  }
+
 
   // Render based on game phase
   if (gamePhase === "character-selection") {
@@ -117,6 +130,9 @@ function App() {
 
   // Playing phase
   const currentScenario = gameState.activeScenarios[gameState.scenarioIndex];
+
+
+
 
   return (
     <GameLayout

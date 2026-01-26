@@ -3,7 +3,7 @@ export const characters = [
     id: "worker",
     name: "Nguyễn Văn Công",
     role: "Công nhân nhà máy dệt",
-    icon: "👷",
+    icon: "/img/img1.png",
     description:
       "Công nhân 35 tuổi, làm việc tại nhà máy dệt 12 năm. Gia đình có vợ và 2 con nhỏ. Lương thấp, điều kiện làm việc khó khăn.",
     background:
@@ -19,7 +19,7 @@ export const characters = [
     id: "farmer",
     name: "Trần Thị Lúa",
     role: "Nông dân nghèo",
-    icon: "👩‍🌾",
+    icon: "/img/img2.png",
     description:
       "Nông dân 40 tuổi, canh tác ruộng thuê của địa chủ. Phải nộp 60% thu hoạch. Mắc nợ nặng, cuộc sống cực khổ.",
     background:
@@ -35,7 +35,7 @@ export const characters = [
     id: "intellectual",
     name: "Lê Văn Minh",
     role: "Trí thức tiến bộ",
-    icon: "👨‍🎓",
+    icon: "/img/img3.png",
     description:
       "Giáo viên 28 tuổi, đã đọc nhiều sách Mác-Lênin. Muốn thay đổi xã hội nhưng còn do dự giữa lý tưởng và thực tế.",
     background:
@@ -51,7 +51,7 @@ export const characters = [
     id: "party_member",
     name: "Hoàng Văn Đảng",
     role: "Cán bộ Đảng cơ sở",
-    icon: "⭐",
+    icon: "/img/img4.png",
     description:
       "Cán bộ Đảng 32 tuổi, phụ trách một khu vực. Phải cân bằng giữa chỉ thị cấp trên và thực tế quần chúng.",
     background:
@@ -67,7 +67,7 @@ export const characters = [
     id: "student",
     name: "Phạm Thu Hà",
     role: "Sinh viên năm 3",
-    icon: "📚",
+    icon: "/img/img5.png",
     description:
       "Sinh viên 21 tuổi, đang học về lịch sử và triết học. Nhiệt huyết với lý tưởng nhưng thiếu kinh nghiệm thực tế.",
     background:
@@ -83,7 +83,7 @@ export const characters = [
     id: "capitalist",
     name: "Ngô Văn Phú",
     role: "Chủ xưởng nhỏ",
-    icon: "💼",
+    icon: "/img/img6.png",
     description:
       "Chủ xưởng may 45 tuổi, có 20 công nhân. Bản thân cũng từng là công nhân, giờ trở thành chủ. Đang phân vân về tương lai.",
     background:

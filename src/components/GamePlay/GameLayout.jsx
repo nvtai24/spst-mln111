@@ -2,12 +2,12 @@ import PropTypes from 'prop-types';
 import Sidebar from './Sidebar';
 import ScenarioView from './ScenarioView';
 
-function GameLayout({ 
-  selectedCharacter, 
-  gameState, 
-  currentScenario, 
+function GameLayout({
+  selectedCharacter,
+  gameState,
+  currentScenario,
   onMakeDecision,
-  statConfig 
+  statConfig
 }) {
   return (
     <div className="app">
