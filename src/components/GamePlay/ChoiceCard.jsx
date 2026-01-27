@@ -1,13 +1,10 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 function ChoiceCard({ choice, onClick, statConfig }) {
   return (
-    <button
-      className="choice-card"
-      onClick={onClick}
-    >
+    <button className="choice-card" onClick={onClick}>
       <div className="choice-text">{choice.text}</div>
-      <div className="choice-effects">
+      {/* <div className="choice-effects">
         {Object.entries(choice.effects).map(([key, value]) => (
           <span 
             key={key} 
@@ -16,7 +13,7 @@ function ChoiceCard({ choice, onClick, statConfig }) {
             {statConfig[key].icon} {value > 0 ? "+" : ""}{value}
           </span>
         ))}
-      </div>
+      </div> */}
     </button>
   );
 }
