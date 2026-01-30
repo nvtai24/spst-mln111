@@ -1,8 +1,16 @@
 import PropTypes from "prop-types";
+import { useSoundContext } from "../../contexts/SoundContext";
 
 function ChoiceCard({ choice, onClick, statConfig }) {
+  const { playClickSound } = useSoundContext();
+
+  const handleClick = () => {
+    playClickSound();
+    onClick();
+  };
+
   return (
-    <button className="choice-card" onClick={onClick}>
+    <button className="choice-card" onClick={handleClick}>
       <div className="choice-text">{choice.text}</div>
       {/* <div className="choice-effects">
         {Object.entries(choice.effects).map(([key, value]) => (

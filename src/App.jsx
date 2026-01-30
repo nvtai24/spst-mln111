@@ -8,6 +8,8 @@ import GameLayout from "./components/GamePlay/GameLayout";
 import EndingScreen from "./components/Ending/EndingScreen";
 import MenuScreen from "./components/Menu/MenuScreen";
 import LoadingScreen from "./components/common/LoadingScreen";
+import { SoundProvider } from "./contexts/SoundContext";
+import SoundControls from "./components/common/SoundControls";
 
 function App() {
   const [gamePhase, setGamePhase] = useState("menu");
@@ -28,8 +30,6 @@ function App() {
       setGamePhase("character-selection");
     }, 1000);
   };
-
-
 
   // Stat configuration
   const statConfig = {
@@ -102,54 +102,73 @@ function App() {
   };
 
   const getEvaluation = () => {
-    return evaluateGame(selectedCharacter.id, gameState.choices, gameState.stats);
+    return evaluateGame(
+      selectedCharacter.id,
+      gameState.choices,
+      gameState.stats,
+    );
   };
 
   if (gamePhase === "menu") {
-    return <MenuScreen onStart={startGame} />;
+    return (
+      <SoundProvider>
+        <SoundControls />
+        <MenuScreen onStart={startGame} />
+      </SoundProvider>
+    );
   }
 
   if (gamePhase === "loading") {
-    return <LoadingScreen />;
+    return (
+      <SoundProvider>
+        <SoundControls />
+        <LoadingScreen />
+      </SoundProvider>
+    );
   }
-
 
   // Render based on game phase
   if (gamePhase === "character-selection") {
     return (
-      <CharacterSelection
-        characters={characters}
-        onSelectCharacter={selectCharacter}
-      />
+      <SoundProvider>
+        <SoundControls />
+        <CharacterSelection
+          characters={characters}
+          onSelectCharacter={selectCharacter}
+        />
+      </SoundProvider>
     );
   }
 
   if (gamePhase === "ending") {
     const evaluation = getEvaluation();
     return (
-      <EndingScreen
-        character={selectedCharacter}
-        evaluation={evaluation}
-        choices={gameState.choices}
-        onRestart={resetGame}
-      />
+      <SoundProvider>
+        <SoundControls />
+        <EndingScreen
+          character={selectedCharacter}
+          evaluation={evaluation}
+          choices={gameState.choices}
+          onRestart={resetGame}
+        />
+      </SoundProvider>
     );
   }
 
   // Playing phase
   const currentScenario = gameState.activeScenarios[gameState.scenarioIndex];
 
-
-
-
   return (
-    <GameLayout
-      selectedCharacter={selectedCharacter}
-      gameState={gameState}
-      currentScenario={currentScenario}
-      onMakeDecision={makeDecision}
-      statConfig={statConfig}
-    />
+    <SoundProvider>
+      <SoundControls />
+      <GameLayout
+        selectedCharacter={selectedCharacter}
+        gameState={gameState}
+        currentScenario={currentScenario}
+        onMakeDecision={makeDecision}
+        statConfig={statConfig}
+      />
+    </SoundProvider>
   );
 }
 

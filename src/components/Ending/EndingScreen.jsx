@@ -1,8 +1,16 @@
-import PropTypes from 'prop-types';
-import './EndingScreen.css';
-import HistoryList from './HistoryList';
+import PropTypes from "prop-types";
+import { useSoundContext } from "../../contexts/SoundContext";
+import "./EndingScreen.css";
+import HistoryList from "./HistoryList";
 
 function EndingScreen({ character, evaluation, choices, onRestart }) {
+  const { playMenuSound, stopBackgroundMusic } = useSoundContext();
+
+  const handleRestart = () => {
+    playMenuSound();
+    stopBackgroundMusic();
+    onRestart();
+  };
   return (
     <div className="app">
       <div className="ending-container">
@@ -28,15 +36,11 @@ function EndingScreen({ character, evaluation, choices, onRestart }) {
         </div>
 
         <div className="final-analysis">
-          <p className="ending-message">
-            {evaluation.message}
-          </p>
+          <p className="ending-message">{evaluation.message}</p>
           <p className="analysis-text">{evaluation.analysis}</p>
 
           {evaluation.characterAnalysis && (
-            <p className="character-analysis">
-              {evaluation.characterAnalysis}
-            </p>
+            <p className="character-analysis">{evaluation.characterAnalysis}</p>
           )}
         </div>
 
@@ -78,7 +82,7 @@ function EndingScreen({ character, evaluation, choices, onRestart }) {
         <HistoryList choices={choices} />
 
         <div className="ending-actions">
-          <button className="restart-btn" onClick={onRestart}>
+          <button className="restart-btn" onClick={handleRestart}>
             Khởi đầu mới
           </button>
         </div>

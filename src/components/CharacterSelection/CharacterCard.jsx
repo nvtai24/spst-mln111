@@ -1,11 +1,16 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
+import { useSoundContext } from "../../contexts/SoundContext";
 
 function CharacterCard({ character, onClick }) {
+  const { playSuccessSound } = useSoundContext();
+
+  const handleClick = () => {
+    playSuccessSound();
+    onClick();
+  };
+
   return (
-    <div
-      className="character-card"
-      onClick={onClick}
-    >
+    <div className="character-card" onClick={handleClick}>
       <div className="character-icon">
         <img src={character.icon} alt={character.role} />
       </div>
