@@ -1,6 +1,59 @@
 // Hook để quản lý âm thanh trong ứng dụng
-import { useRef, useState, useEffect } from "react";
-import { createSimpleSound } from "../utils/soundUtils";
+import { useRef, useState, useEffect, useCallback } from "react";
+
+// Audio configuration
+const AUDIO_CONFIG = {
+  backgroundMusic: {
+    src: "/audio/background-music.mp3",
+    volume: 0.3,
+    loop: true,
+  },
+  clickSound: { src: "/audio/click-sound.mp3", volume: 0.5, poolSize: 3 },
+  successSound: { src: "/audio/success-sound.mp3", volume: 0.6, poolSize: 2 },
+  menuSound: { src: "/audio/menu-sound.mp3", volume: 0.4, poolSize: 2 },
+};
+
+// Preload và cache audio buffer toàn cục
+const audioCache = new Map();
+const audioContext =
+  typeof window !== "undefined"
+    ? new (window.AudioContext || window.webkitAudioContext)()
+    : null;
+
+// Hàm preload audio buffer
+const preloadAudioBuffer = async (src) => {
+  if (audioCache.has(src)) return audioCache.get(src);
+
+  try {
+    const response = await fetch(src);
+    const arrayBuffer = await response.arrayBuffer();
+    const audioBuffer = await audioContext?.decodeAudioData(arrayBuffer);
+    audioCache.set(src, audioBuffer);
+    return audioBuffer;
+  } catch (error) {
+    console.log("Failed to preload audio:", src, error);
+    return null;
+  }
+};
+
+// Tạo audio element với preload
+const createPreloadedAudio = (src, volume, loop = false) => {
+  const audio = new Audio();
+  audio.preload = "auto";
+  audio.volume = volume;
+  audio.loop = loop;
+  audio.src = src; // Set src sau preload để trigger loading
+  return audio;
+};
+
+// Tạo pool audio cho sound effects (tránh delay khi play liên tục)
+const createAudioPool = (src, volume, poolSize = 3) => {
+  const pool = [];
+  for (let i = 0; i < poolSize; i++) {
+    pool.push(createPreloadedAudio(src, volume));
+  }
+  return pool;
+};
 
 export const useSound = () => {
   const [isBackgroundMusicEnabled, setIsBackgroundMusicEnabled] =
@@ -8,50 +61,82 @@ export const useSound = () => {
   const [isSoundEffectsEnabled, setIsSoundEffectsEnabled] = useState(true);
   const [isBackgroundMusicPlaying, setIsBackgroundMusicPlaying] =
     useState(false);
+  const [isAudioReady, setIsAudioReady] = useState(false);
+
   const backgroundIntervalRef = useRef(null);
   const audioRefs = useRef({});
+  const audioPoolRefs = useRef({});
+  const poolIndexRefs = useRef({ click: 0, success: 0, menu: 0 });
 
-  // Khởi tạo audio objects cho file thực
+  // Khởi tạo và preload audio
   useEffect(() => {
-    // Nhạc nền
-    audioRefs.current.backgroundMusic = new Audio(
-      "/audio/background-music.mp3",
-    );
-    audioRefs.current.backgroundMusic.loop = true;
-    audioRefs.current.backgroundMusic.volume = 0.3;
+    const initAudio = async () => {
+      // Preload tất cả audio buffers song song
+      const preloadPromises = Object.values(AUDIO_CONFIG).map((config) =>
+        preloadAudioBuffer(config.src),
+      );
 
-    // Sound effects
-    audioRefs.current.clickSound = new Audio("/audio/click-sound.mp3");
-    audioRefs.current.clickSound.volume = 0.5;
+      // Nhạc nền - chỉ cần 1 instance
+      const bgConfig = AUDIO_CONFIG.backgroundMusic;
+      audioRefs.current.backgroundMusic = createPreloadedAudio(
+        bgConfig.src,
+        bgConfig.volume,
+        bgConfig.loop,
+      );
 
-    audioRefs.current.successSound = new Audio("/audio/success-sound.mp3");
-    audioRefs.current.successSound.volume = 0.6;
+      // Sound effects - dùng pool để play nhanh hơn
+      audioPoolRefs.current.click = createAudioPool(
+        AUDIO_CONFIG.clickSound.src,
+        AUDIO_CONFIG.clickSound.volume,
+        AUDIO_CONFIG.clickSound.poolSize,
+      );
 
-    audioRefs.current.menuSound = new Audio("/audio/menu-sound.mp3");
-    audioRefs.current.menuSound.volume = 0.4;
+      audioPoolRefs.current.success = createAudioPool(
+        AUDIO_CONFIG.successSound.src,
+        AUDIO_CONFIG.successSound.volume,
+        AUDIO_CONFIG.successSound.poolSize,
+      );
 
-    // Preload audio
-    Object.values(audioRefs.current).forEach((audio) => {
-      audio.preload = "auto";
-    });
+      audioPoolRefs.current.menu = createAudioPool(
+        AUDIO_CONFIG.menuSound.src,
+        AUDIO_CONFIG.menuSound.volume,
+        AUDIO_CONFIG.menuSound.poolSize,
+      );
+
+      // Đợi preload xong
+      await Promise.all(preloadPromises);
+      setIsAudioReady(true);
+    };
+
+    initAudio();
 
     // Cleanup function
     return () => {
-      Object.values(audioRefs.current).forEach((audio) => {
-        audio.pause();
-        audio.src = "";
+      if (audioRefs.current.backgroundMusic) {
+        audioRefs.current.backgroundMusic.pause();
+        audioRefs.current.backgroundMusic.src = "";
+      }
+      Object.values(audioPoolRefs.current).forEach((pool) => {
+        pool?.forEach((audio) => {
+          audio.pause();
+          audio.src = "";
+        });
       });
     };
   }, []);
 
-  const playBackgroundMusic = () => {
+  const playBackgroundMusic = useCallback(() => {
     if (isBackgroundMusicEnabled && audioRefs.current.backgroundMusic) {
       setIsBackgroundMusicPlaying(true);
+      // Resume AudioContext nếu bị suspended (browser policy)
+      if (audioContext?.state === "suspended") {
+        audioContext.resume();
+      }
       audioRefs.current.backgroundMusic.play().catch(console.log);
     }
-  };
+  }, [isBackgroundMusicEnabled]);
 
-  const stopBackgroundMusic = () => {
+  const stopBackgroundMusic = useCallback(() => {
     setIsBackgroundMusicPlaying(false);
     if (audioRefs.current.backgroundMusic) {
       audioRefs.current.backgroundMusic.pause();
@@ -61,30 +146,41 @@ export const useSound = () => {
       clearInterval(backgroundIntervalRef.current);
       backgroundIntervalRef.current = null;
     }
-  };
+  }, []);
 
-  const playClickSound = () => {
-    if (isSoundEffectsEnabled && audioRefs.current.clickSound) {
-      audioRefs.current.clickSound.currentTime = 0;
-      audioRefs.current.clickSound.play().catch(console.log);
-    }
-  };
+  // Helper để play từ pool (round-robin)
+  const playFromPool = useCallback(
+    (poolKey) => {
+      if (!isSoundEffectsEnabled) return;
 
-  const playSuccessSound = () => {
-    if (isSoundEffectsEnabled && audioRefs.current.successSound) {
-      audioRefs.current.successSound.currentTime = 0;
-      audioRefs.current.successSound.play().catch(console.log);
-    }
-  };
+      const pool = audioPoolRefs.current[poolKey];
+      if (!pool || pool.length === 0) return;
 
-  const playMenuSound = () => {
-    if (isSoundEffectsEnabled && audioRefs.current.menuSound) {
-      audioRefs.current.menuSound.currentTime = 0;
-      audioRefs.current.menuSound.play().catch(console.log);
-    }
-  };
+      // Round-robin để chọn audio tiếp theo
+      const index = poolIndexRefs.current[poolKey];
+      const audio = pool[index];
+      poolIndexRefs.current[poolKey] = (index + 1) % pool.length;
 
-  const toggleBackgroundMusic = () => {
+      // Reset và play
+      audio.currentTime = 0;
+      audio.play().catch(console.log);
+    },
+    [isSoundEffectsEnabled],
+  );
+
+  const playClickSound = useCallback(() => {
+    playFromPool("click");
+  }, [playFromPool]);
+
+  const playSuccessSound = useCallback(() => {
+    playFromPool("success");
+  }, [playFromPool]);
+
+  const playMenuSound = useCallback(() => {
+    playFromPool("menu");
+  }, [playFromPool]);
+
+  const toggleBackgroundMusic = useCallback(() => {
     const newState = !isBackgroundMusicEnabled;
     setIsBackgroundMusicEnabled(newState);
 
@@ -93,11 +189,11 @@ export const useSound = () => {
     } else if (audioRefs.current.backgroundMusic) {
       playBackgroundMusic();
     }
-  };
+  }, [isBackgroundMusicEnabled, stopBackgroundMusic, playBackgroundMusic]);
 
-  const toggleSoundEffects = () => {
+  const toggleSoundEffects = useCallback(() => {
     setIsSoundEffectsEnabled(!isSoundEffectsEnabled);
-  };
+  }, [isSoundEffectsEnabled]);
 
   return {
     playBackgroundMusic,
@@ -110,5 +206,6 @@ export const useSound = () => {
     isBackgroundMusicEnabled,
     isSoundEffectsEnabled,
     isBackgroundMusicPlaying,
+    isAudioReady, // Thêm trạng thái để biết khi nào audio sẵn sàng
   };
 };
