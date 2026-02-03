@@ -11,6 +11,7 @@ const AUDIO_CONFIG = {
   clickSound: { src: "/audio/click-sound.mp3", volume: 0.5, poolSize: 3 },
   successSound: { src: "/audio/success-sound.mp3", volume: 0.6, poolSize: 2 },
   menuSound: { src: "/audio/menu-sound.mp3", volume: 0.4, poolSize: 2 },
+  congratsSound: { src: "/audio/congrats-sound.mp3", volume: 0.7, poolSize: 1 },
 };
 
 // Preload và cache audio buffer toàn cục
@@ -66,7 +67,7 @@ export const useSound = () => {
   const backgroundIntervalRef = useRef(null);
   const audioRefs = useRef({});
   const audioPoolRefs = useRef({});
-  const poolIndexRefs = useRef({ click: 0, success: 0, menu: 0 });
+  const poolIndexRefs = useRef({ click: 0, success: 0, menu: 0, congrats: 0 });
 
   // Khởi tạo và preload audio
   useEffect(() => {
@@ -101,6 +102,12 @@ export const useSound = () => {
         AUDIO_CONFIG.menuSound.src,
         AUDIO_CONFIG.menuSound.volume,
         AUDIO_CONFIG.menuSound.poolSize,
+      );
+
+      audioPoolRefs.current.congrats = createAudioPool(
+        AUDIO_CONFIG.congratsSound.src,
+        AUDIO_CONFIG.congratsSound.volume,
+        AUDIO_CONFIG.congratsSound.poolSize,
       );
 
       // Đợi preload xong
@@ -180,6 +187,10 @@ export const useSound = () => {
     playFromPool("menu");
   }, [playFromPool]);
 
+  const playCongratsSound = useCallback(() => {
+    playFromPool("congrats");
+  }, [playFromPool]);
+
   const toggleBackgroundMusic = useCallback(() => {
     const newState = !isBackgroundMusicEnabled;
     setIsBackgroundMusicEnabled(newState);
@@ -201,11 +212,12 @@ export const useSound = () => {
     playClickSound,
     playSuccessSound,
     playMenuSound,
+    playCongratsSound,
     toggleBackgroundMusic,
     toggleSoundEffects,
     isBackgroundMusicEnabled,
     isSoundEffectsEnabled,
     isBackgroundMusicPlaying,
-    isAudioReady, // Thêm trạng thái để biết khi nào audio sẵn sàng
+    isAudioReady,
   };
 };

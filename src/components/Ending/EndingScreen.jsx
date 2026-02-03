@@ -1,10 +1,17 @@
 import PropTypes from "prop-types";
+import { useEffect } from "react";
 import { useSoundContext } from "../../contexts/SoundContext";
 import "./EndingScreen.css";
 import HistoryList from "./HistoryList";
 
 function EndingScreen({ character, evaluation, choices, onRestart }) {
-  const { playMenuSound, stopBackgroundMusic } = useSoundContext();
+  const { playMenuSound, stopBackgroundMusic, playCongratsSound } =
+    useSoundContext();
+
+  // Play congratulation sound when ending screen mounts
+  useEffect(() => {
+    playCongratsSound();
+  }, [playCongratsSound]);
 
   const handleRestart = () => {
     playMenuSound();
